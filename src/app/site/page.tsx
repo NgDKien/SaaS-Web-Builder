@@ -1,6 +1,7 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { pricingCards } from "@/lib/constants";
 import clsx from "clsx";
+import { Check, Link } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
@@ -53,7 +54,46 @@ export default function Home() {
                 >
                   {card.title}
                 </CardTitle>
+                <CardDescription>
+                  {/* {
+                    pricingCards.find((c) => c.title === card.nickname)
+                      ?.description
+                  } */}
+                  {card.description}
+                </CardDescription>
               </CardHeader>
+              <CardContent>
+                <span className="text-4xl font-bold">
+                  {/* {card.unit_amount && card.unit_amount / 100} */}
+                  {card.price}
+                </span>
+                <span className="text-muted-foreground">
+                  {/* <span>/ {card.recurring?.interval}</span> */}
+                  <span>/m</span>
+                </span>
+              </CardContent>
+              <CardFooter className="flex flex-col items-start gap-4">
+                <div>
+                  {card.features.map((feature) => (
+                    <div key={feature} className="flex gap-2 items-center">
+                      <Check className="text-muted-foreground " />
+                      <p>{feature}</p>
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  href={`/agency?plan=${card.priceId}`}
+                  className={clsx(
+                    'w-full text-center bg-primary p-2 rounded-md',
+                    {
+                      '!bg-muted-foreground':
+                        card.title !== 'Unlimited Saas',
+                    }
+                  )}
+                >
+                  Get Started
+                </Link>
+              </CardFooter>
             </Card>
           ))}
         </div>
