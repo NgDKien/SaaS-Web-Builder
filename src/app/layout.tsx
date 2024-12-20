@@ -6,6 +6,9 @@ import { ThemeProvider } from "@/providers/theme-provider";
 // import ModalProvider from '@/providers/modal-provider'
 // import { Toaster } from '@/components/ui/toaster'
 // import { Toaster as SonnarToaster } from '@/components/ui/sonner'
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 const font = DM_Sans({ subsets: ['latin'] })
 
@@ -35,6 +38,9 @@ export default function RootLayout({
             <Toaster />
             <SonnarToaster position="bottom-left" />
           </ModalProvider> */}
+          <NextSSRPlugin
+            routerConfig={extractRouterConfig(ourFileRouter)}
+          />
           {children}
         </ThemeProvider>
       </body>
